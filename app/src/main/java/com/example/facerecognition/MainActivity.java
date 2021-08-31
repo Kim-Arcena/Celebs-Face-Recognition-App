@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity: ", "OpenCV is loaded.");
         }
         else{
-            Log.d("MainActivity: ", "OpenCV failed to load.");
+            Log.d("MainActivity: ", "OpenCV failed to load .");
         }
     }
 
