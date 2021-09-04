@@ -25,7 +25,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
     private static final String TAG = "MainActivity";
     private Mat mRgba;
-    private Mat mGrey;
+    private Mat mGray;
     private CameraBridgeViewBase mOpenCvCameraView;
     private BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
         @Override
@@ -58,7 +58,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         int MY_PERMISSION_REQUEST_CAMERA = 0;
         //if camera permission is not given it will ask for it on device
         if (ContextCompat.checkSelfPermission(CameraActivity.this, Manifest.permission.CAMERA)
-            == PackageManager.PERMISSION_DENIED){
+                == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(CameraActivity.this, new String[] {Manifest.permission.CAMERA}, MY_PERMISSION_REQUEST_CAMERA);
         }
 
@@ -107,25 +107,17 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
     public void onCameraViewStarted(int width, int height){
         mRgba=new Mat(height, width, CvType.CV_8UC4);
-        mGrey=new Mat(height, width, CvType.CV_8UC1);
+        mGray=new Mat(height, width, CvType.CV_8UC1);
     }
     public void onCameraViewStopped(){
         mRgba.release();
     }
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame){
         mRgba=inputFrame.rgba();
-        mGrey=inputFrame.gray();
+        mGray=inputFrame.gray();
         return mRgba;
     }
 
 
 
 }
-
-
-
-
-
-
-
-

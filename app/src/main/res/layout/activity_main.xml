@@ -8,9 +8,9 @@
     android:gravity="center">
 
     <Button
-        android:id="@+id/cameraBtn"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:id="@+id/camera_button"
         android:text="Object"
         />
 
