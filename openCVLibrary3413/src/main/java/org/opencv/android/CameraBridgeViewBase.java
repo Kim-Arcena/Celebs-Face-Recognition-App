@@ -413,7 +413,7 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
             float mScale1=0;
             float mScale2=0;
             if(canvas.getHeight()>canvas.getWidth()){
-                canvas.rotate(90f,canvas.getWidth()/2, canvas.getHeight());
+                canvas.rotate(90f,canvas.getWidth()/2, canvas.getHeight()/2);
                 mScale1=1.8f;
                 mScale2=1.5f;
             }
