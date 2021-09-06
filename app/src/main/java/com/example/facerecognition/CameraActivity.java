@@ -126,6 +126,10 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame){
         mRgba=inputFrame.rgba();
         mGray=inputFrame.gray();
+        mRgba = face_Recognition.recognizeImage(mRgba);
+
+
+
         return mRgba;
     }
 

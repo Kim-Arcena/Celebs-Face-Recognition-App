@@ -3,8 +3,17 @@ package com.example.facerecognition;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import org.opencv.android.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.gpu.GpuDelegate;
@@ -14,8 +23,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Objects;
 
 public class face_Recognition {
     private Interpreter interpreter;
@@ -77,6 +90,102 @@ public class face_Recognition {
             e.printStackTrace();
         }
 
+    }
+    //class with input mat and output mat
+    public Mat recognizeImage(Mat mat_image){
+        //rotate map_image by 90 degrees to properly align
+        Core.flip(mat_image.t(),mat_image,1);
+        //do all processing here & convert image to grayscale
+
+        Mat grayscaleImage= new Mat();
+
+                            //input     output          type
+        Imgproc.cvtColor(mat_image, grayscaleImage,Imgproc.COLOR_RGBA2GRAY);
+        //now define height and weight
+        height=grayscaleImage.height();
+        width=grayscaleImage.width();
+
+        //define minimum height and width of face in frame
+        int absoluteFaceSize=(int) (height*0.1);
+        MatOfRect faces = new MatOfRect();  //this will store all faces
+
+        //check if cascadeclasifier is loaded or not
+
+        if(cascadeClassifier != null){
+            //detect face in frame
+                                                //input        output   scale of face                       minimum size of face
+            cascadeClassifier.detectMultiScale(grayscaleImage, faces, 1.1,2,2,
+                    new Size(absoluteFaceSize,absoluteFaceSize),new Size());
+        }
+
+        Rect[] faceArray=faces.toArray();
+        for (int i=0;i<faceArray.length;i++){
+            //draw rectangle around face
+                                //input/output, starting point,  endpoint,     color
+            Imgproc.rectangle(mat_image, faceArray[i].tl(), faceArray[i].br(), new Scalar(0,255,0,255), 2);
+
+                            //starting x coordinate         starting y coordinate
+            Rect roi=new Rect((int)faceArray[i].tl().x,(int)faceArray[i].tl().y,
+                    ((int)faceArray[i].br().x)-((int)faceArray[i].tl().x),
+                    ((int)faceArray[i].br().y)-((int)faceArray[i].tl().y));
+
+            //roi is used to crop faces
+            Mat cropped_rgb=new Mat(mat_image, roi);
+            Bitmap bitmap = null;
+            bitmap=Bitmap.createBitmap(cropped_rgb.cols(), cropped_rgb.rows(),Bitmap.Config.ARGB_8888);
+            Utils.matToBitmap(cropped_rgb, bitmap);
+
+            //now scale bitmap to model input size 96
+
+            Bitmap scaledBitmap=Bitmap.createScaledBitmap(bitmap,INPUT_SIZE, INPUT_SIZE, false);
+            //now convert scaledBitmap to byteBuffer
+            ByteBuffer byteBuffer = convertBitmapToByteBuffer(scaledBitmap);
+
+            float[][] face_value=new float[1][1];
+            interpreter.run(byteBuffer,face_value);
+
+            //to see face value
+            Log.d("face_Recognition", "Out: " + Array.get(Array.get(face_value, 0),0));
+
+        }
+
+        //rotate by -90
+        Core.flip(mat_image.t(), mat_image, 0);
+
+        return mat_image;
+    }
+
+    private ByteBuffer convertBitmapToByteBuffer(Bitmap scaledBitmap) {
+        //define ByteBuffer
+        ByteBuffer byteBuffer;
+        int input_size = INPUT_SIZE;
+        //multiply by 4 if input of model is float
+        //multiply by 3 is input is RGB
+        //if input is gray 3->1
+        byteBuffer = ByteBuffer.allocateDirect(4*1*input_size*input_size*3);
+        byteBuffer.order(ByteOrder.nativeOrder());
+        int[] intValues = new int[input_size*input_size];
+        scaledBitmap.getPixels(intValues, 0, scaledBitmap.getWidth(), 0,0, scaledBitmap.getWidth(),
+                scaledBitmap.getHeight());
+        int pixels=0;
+
+        //loop through each pixels
+        for (int i = 0;i <input_size; ++i){
+            for(int j = 0; j< input_size; ++j){
+                //each pixel values
+                final int val = intValues[pixels++];
+                byteBuffer.putFloat((((val>>16)&0xFF))/255.0f);
+                byteBuffer.putFloat((((val>>8)&0xFF))/255.0f);
+                byteBuffer.putFloat(((val & 0xFF))/255.0f);
+                //this thing is important
+                //it is placing RGB to MSB to LSB
+
+
+                //scaling pixels by from 0-255 to 0-1
+
+            }
+        }
+        return byteBuffer;
     }
 
     private MappedByteBuffer loadModel(AssetManager assetManager, String modelPath) throws IOException {
