@@ -10,6 +10,7 @@ import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
@@ -24,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
@@ -50,7 +52,7 @@ public class face_Recognition {
 
         //load model
         //before load add number of threads
-        options.setNumThreads(5);
+        options.setNumThreads(4);
         interpreter = new Interpreter(loadModel(assetManager, modelPath), options);
 
         //when model is successfully loaded
@@ -119,6 +121,7 @@ public class face_Recognition {
         }
 
         Rect[] faceArray=faces.toArray();
+
         for (int i=0;i<faceArray.length;i++){
             //draw rectangle around face
                                 //input/output, starting point,  endpoint,     color
@@ -132,7 +135,7 @@ public class face_Recognition {
             //roi is used to crop faces
             Mat cropped_rgb=new Mat(mat_image, roi);
             Bitmap bitmap = null;
-            bitmap=Bitmap.createBitmap(cropped_rgb.cols(), cropped_rgb.rows(),Bitmap.Config.ARGB_8888);
+            bitmap = Bitmap.createBitmap(cropped_rgb.cols(), cropped_rgb.rows(), Bitmap.Config.ARGB_8888);
             Utils.matToBitmap(cropped_rgb, bitmap);
 
             //now scale bitmap to model input size 96
@@ -145,7 +148,14 @@ public class face_Recognition {
             interpreter.run(byteBuffer,face_value);
 
             //to see face value
-            Log.d("face_Recognition", "Out: " + Array.get(Array.get(face_value, 0),0));
+            Log.d("face_Recognition", "Out: " + Array.get(Objects.requireNonNull(Array.get(face_value, 0)),0));
+
+            float read_faces=(float) Array.get(Array.get(face_value, 0 ),0);
+            String face_name=get_face_name(read_faces);
+            //now we will puttext on frame
+                             //in/output        //name          starting point                              //ending point
+            Imgproc.putText(mat_image, ""+ face_name, new Point((int)faceArray[i].tl().x+10, (int)faceArray[i].tl().y+20),
+                    1, 1.5, new Scalar(255,255,255,150),2);
 
         }
 
@@ -153,6 +163,105 @@ public class face_Recognition {
         Core.flip(mat_image.t(), mat_image, 0);
 
         return mat_image;
+    }
+
+
+    //to be optimized after final output
+    private String get_face_name(float read_faces) {
+        String val = "";
+        if(read_faces>=0 & read_faces < 0.5){
+            val="Courtney Cox";
+        }
+        else if(read_faces>=0.5 & read_faces < 1.5){
+            val="Arnold Schwarzenegger";
+        }
+        else if(read_faces>=1.5 & read_faces < 2.5){
+            val="Bhuvan Bam";
+        }
+        else if(read_faces>=2.5 & read_faces < 3.5){
+            val="Hardik Pandya";
+        }
+        else if(read_faces>=3.5 & read_faces < 4.5){
+            val="David Schwimmer";
+        }
+        else if(read_faces>=4.5 & read_faces < 5.5){
+            val="Matt LeBlanc";
+        }
+        else if(read_faces>=5.5 & read_faces < 6.5){
+            val="Simon Helberg";
+        }
+        else if(read_faces>=6.5 & read_faces < 7.5){
+            val="Scarlett Johansson";
+        }
+        else if(read_faces>=7.5 & read_faces < 8.5){
+            val="Pankaj Tripathi";
+        }
+        else if(read_faces>=8.5 & read_faces < 9.5){
+            val="Matthew Perry";
+        }
+        else if(read_faces>=9.5 & read_faces < 10.5){
+            val="Sylvester Stallone";
+        }
+        else if(read_faces>=10.5 & read_faces < 11.5){
+            val="Lionel Messi";
+        }
+        else if(read_faces>=11.5 & read_faces < 12.5){
+            val="Jim Parsons";
+        }
+        else if(read_faces>=12.5 & read_faces < 13.5){
+            val="Not in the dataset";
+        }
+        else if(read_faces>=13.5 & read_faces < 14.5){
+            val="Lisa Kudrow";
+        }
+        else if(read_faces>=14.5 & read_faces < 15.5){
+            val="Muhammad Ali";
+        }
+        else if(read_faces>=15.5 & read_faces < 16.5){
+            val="Brad Pitt";
+        }
+        else if(read_faces>=16.5 & read_faces < 17.5){
+            val="Cristiano Ronaldo";
+        }
+        else if(read_faces>=17.5 & read_faces < 18.5){
+            val="Virat Kohli";
+        }
+        else if(read_faces>=18.5 & read_faces < 19.5){
+            val="Angelina Jolie";
+        }
+        else if(read_faces>=19.5 & read_faces < 20.5){
+            val="Kunal Nayyar";
+        }
+        else if(read_faces>=20.5 & read_faces < 21.5){
+            val="Manoj Bajpayee";
+        }
+        else if(read_faces>=21.5 & read_faces < 22.5){
+            val="Sachin Tendulka";
+        }
+        else if(read_faces>=22.5 & read_faces < 23.5){
+            val="Virat Kohli";
+        }
+        else if(read_faces>=23.5 & read_faces < 24.5){
+            val="Dhoni";
+        }
+        else if(read_faces>=24.5 & read_faces < 25.5){
+            val="Pewdiepie";
+        }
+        else if(read_faces>=25.5 & read_faces < 26.5){
+            val="Aishwarya Rai";
+        }
+        else if(read_faces>=26.5 & read_faces < 27.5){
+            val="Johnny Galeck";
+        }
+        else if(read_faces>=27.5 & read_faces < 28.5){
+            val="Rohis Sharma";
+        }
+        else{
+            val = "Suresh Raina";
+        }
+
+        return val;
+
     }
 
     private ByteBuffer convertBitmapToByteBuffer(Bitmap scaledBitmap) {

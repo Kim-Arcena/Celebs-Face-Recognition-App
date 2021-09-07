@@ -129,7 +129,6 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         mRgba = face_Recognition.recognizeImage(mRgba);
 
 
-
         return mRgba;
     }
 
