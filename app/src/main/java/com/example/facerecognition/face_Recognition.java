@@ -170,94 +170,124 @@ public class face_Recognition {
     private String get_face_name(float read_faces) {
         String val = "";
         if(read_faces>=0 & read_faces < 0.5){
-            val="Courtney Cox";
+            val="Angelina Jolie";
         }
         else if(read_faces>=0.5 & read_faces < 1.5){
             val="Arnold Schwarzenegger";
         }
         else if(read_faces>=1.5 & read_faces < 2.5){
-            val="Bhuvan Bam";
+            val="Bong Go";
         }
         else if(read_faces>=2.5 & read_faces < 3.5){
-            val="Hardik Pandya";
+            val="Brad Pitt";
         }
         else if(read_faces>=3.5 & read_faces < 4.5){
-            val="David Schwimmer";
+            val="Brendon Urie";
         }
         else if(read_faces>=4.5 & read_faces < 5.5){
-            val="Matt LeBlanc";
+            val="CongTV";
         }
         else if(read_faces>=5.5 & read_faces < 6.5){
-            val="Simon Helberg";
+            val="Courteney Cox";
         }
         else if(read_faces>=6.5 & read_faces < 7.5){
-            val="Scarlett Johansson";
+            val="Cristiano Ronaldo";
         }
         else if(read_faces>=7.5 & read_faces < 8.5){
-            val="Pankaj Tripathi";
+            val="Cynthia Villar";
         }
         else if(read_faces>=8.5 & read_faces < 9.5){
-            val="Matthew Perry";
+            val="David Schwimmer";
         }
         else if(read_faces>=9.5 & read_faces < 10.5){
-            val="Sylvester Stallone";
+            val="Debold Sinas";
         }
         else if(read_faces>=10.5 & read_faces < 11.5){
-            val="Lionel Messi";
+            val="Elon Musk";
         }
         else if(read_faces>=11.5 & read_faces < 12.5){
-            val="Jim Parsons";
+            val="Ferdinand Marcos";
         }
         else if(read_faces>=12.5 & read_faces < 13.5){
             val="Not in the dataset";
         }
         else if(read_faces>=13.5 & read_faces < 14.5){
-            val="Lisa Kudrow";
+            val="Francisco Doque";
         }
         else if(read_faces>=14.5 & read_faces < 15.5){
-            val="Muhammad Ali";
+            val="Freddie Mercury";
         }
         else if(read_faces>=15.5 & read_faces < 16.5){
-            val="Brad Pitt";
+            val="George Harrison";
         }
         else if(read_faces>=16.5 & read_faces < 17.5){
-            val="Cristiano Ronaldo";
+            val="Gerard Way";
         }
         else if(read_faces>=17.5 & read_faces < 18.5){
-            val="Virat Kohli";
+            val="Harry Roque";
         }
         else if(read_faces>=18.5 & read_faces < 19.5){
-            val="Angelina Jolie";
+            val="Jennifer Aniston";
         }
         else if(read_faces>=19.5 & read_faces < 20.5){
-            val="Kunal Nayyar";
+            val="Jim Parsons";
         }
         else if(read_faces>=20.5 & read_faces < 21.5){
-            val="Manoj Bajpayee";
+            val="John Lennon";
         }
         else if(read_faces>=21.5 & read_faces < 22.5){
-            val="Sachin Tendulka";
+            val="Johnny Galecki";
         }
         else if(read_faces>=22.5 & read_faces < 23.5){
-            val="Virat Kohli";
+            val="Josh Dun";
         }
         else if(read_faces>=23.5 & read_faces < 24.5){
-            val="Dhoni";
+            val="Junnie Boy";
         }
         else if(read_faces>=24.5 & read_faces < 25.5){
-            val="Pewdiepie";
+            val="Lionel Messi";
         }
         else if(read_faces>=25.5 & read_faces < 26.5){
-            val="Aishwarya Rai";
+            val="Lisa Kudrow";
         }
         else if(read_faces>=26.5 & read_faces < 27.5){
-            val="Johnny Galeck";
+            val="Matt LeBlanc";
         }
         else if(read_faces>=27.5 & read_faces < 28.5){
-            val="Rohis Sharma";
+            val="Matthew Perry";
+        }
+        else if(read_faces>=28.5 & read_faces < 29.5){
+            val="Mohamed Ali";
+        }
+        else if(read_faces>=29.5 & read_faces < 30.5){
+            val="Paul McCartney";
+        }
+        else if(read_faces>=30.5 & read_faces < 31.5){
+            val="Pewdiepie";
+        }
+        else if(read_faces>=31.5 & read_faces < 32.5){
+            val="random_person";
+        }
+        else if(read_faces>=32.5 & read_faces < 33.5){
+            val="Ringo Starr";
+        }
+        else if(read_faces>=33.5 & read_faces < 34.5){
+            val="Rodrigo Duterte";
+        }
+        else if(read_faces>=34.5 & read_faces < 35.5){
+            val="Sarah Duterte";
+        }
+        else if(read_faces>=35.5 & read_faces < 36.5){
+            val="Scarlett Johansson";
+        }
+        else if(read_faces>=36.5 & read_faces < 37.5){
+            val="Simon Helberg";
+        }
+        else if(read_faces>=37.5 & read_faces < 38.5){
+            val="Sylvester Stallone";
         }
         else{
-            val = "Suresh Raina";
+            val = "Tyler Joseph";
         }
 
         return val;
