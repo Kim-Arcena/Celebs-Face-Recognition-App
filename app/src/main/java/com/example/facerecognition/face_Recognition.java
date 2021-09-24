@@ -166,128 +166,20 @@ public class face_Recognition {
     }
 
 
-    //to be optimized after final output
+
     private String get_face_name(float read_faces) {
         String val = "";
-        if(read_faces>=0 & read_faces < 0.5){
-            val="Angelina Jolie";
-        }
-        else if(read_faces>=0.5 & read_faces < 1.5){
-            val="John Lennon";
-        }
-        else if(read_faces>=1.5 & read_faces < 2.5){
-            val="Sylvester Stallone";
-        }
-        else if(read_faces>=2.5 & read_faces < 3.5){
-            val="Lionel Messi";
-        }
-        else if(read_faces>=3.5 & read_faces < 4.5){
-            val="Ferdinand Marcos";
-        }
-        else if(read_faces>=4.5 & read_faces < 5.5){
-            val="Courteney Cox";
-        }
-        else if(read_faces>=5.5 & read_faces < 6.5){
-            val="Matthew Perry";
-        }
-        else if(read_faces>=6.5 & read_faces < 7.5){
-            val="Brendon Urie";
-        }
-        else if(read_faces>=7.5 & read_faces < 8.5){
-            val="Freddie Mercury";
-        }
-        else if(read_faces>=8.5 & read_faces < 9.5){
-            val="Cristiano Ronaldo";
-        }
-        else if(read_faces>=9.5 & read_faces < 10.5){
-            val="Harry Roque";
-        }
-        else if(read_faces>=10.5 & read_faces < 11.5){
-            val="Francisco Doque";
-        }
-        else if(read_faces>=11.5 & read_faces < 12.5){
-            val="Arnold Schwarzenegger";
-        }
-        else if(read_faces>=12.5 & read_faces < 13.5){
-            val="Sarah Duterte";
-        }
-        else if(read_faces>=13.5 & read_faces < 14.5){
-            val="Tyler Joseph";
-        }
-        else if(read_faces>=14.5 & read_faces < 15.5){
-            val="CongTV";
-        }
-        else if(read_faces>=15.5 & read_faces < 16.5){
-            val="Cynthia Villar";
-        }
-        else if(read_faces>=16.5 & read_faces < 17.5){
-            val="Gerard Way";
-        }
-        else if(read_faces>=17.5 & read_faces < 18.5){
-            val="Josh Dun";
-        }
-        else if(read_faces>=18.5 & read_faces < 19.5){
-            val="Rodrigo Duterte";
-        }
-        else if(read_faces>=19.5 & read_faces < 20.5){
-            val="Junnie Boy";
-        }
-        else if(read_faces>=20.5 & read_faces < 21.5){
-            val="Elon Musk";
-        }
-        else if(read_faces>=21.5 & read_faces < 22.5){
-            val="Debold Sinas";
-        }
-        else if(read_faces>=22.5 & read_faces < 23.5){
-            val="random_person";
-        }
-        else if(read_faces>=23.5 & read_faces < 24.5){
-            val="Paul McCartney";
-        }
-        else if(read_faces>=24.5 & read_faces < 25.5){
-            val="Brad Pitt";
-        }
-        else if(read_faces>=25.5 & read_faces < 26.5){
-            val="Scarlett Johansson";
-        }
-        else if(read_faces>=26.5 & read_faces < 27.5){
-            val="Lisa Kudrow";
-        }
-        else if(read_faces>=27.5 & read_faces < 28.5){
-            val="Simon Helberg";
-        }
-        else if(read_faces>=28.5 & read_faces < 29.5){
-            val="Mohamed Ali";
-        }
-        else if(read_faces>=29.5 & read_faces < 30.5){
-            val="Ringo Starr";
-        }
-        else if(read_faces>=30.5 & read_faces < 31.5){
-            val="Johnny Galecki";
-        }
-        else if(read_faces>=31.5 & read_faces < 32.5){
-            val="David Schwimmer";
-        }
-        else if(read_faces>=32.5 & read_faces < 33.5){
-            val="Pewdiepie";
-        }
-        else if(read_faces>=33.5 & read_faces < 34.5){
-            val="George Harrison";
-        }
-        else if(read_faces>=34.5 & read_faces < 35.5){
-            val="Jim Parsons";
-        }
-        else if(read_faces>=35.5 & read_faces < 36.5){
-            val="Matt LeBlanc";
-        }
-        else if(read_faces>=36.5 & read_faces < 37.5){
-            val="Jennifer Aniston";
-        }
-        else if(read_faces>=37.5 & read_faces < 38.5){
-            val="Sylvester Stallone";
-        }
-        else{
-            val = "Bong Go";
+
+        String[] faceNames = {"Angelina Jolie", "John Lennon", "Sylvester Stallone", "Lionel Messi", "Ferdinand Marcos", "Courteney Cox", "Matthew Perry", "Brendon Urie",
+                "Freddie Mercury", "Cristiano Ronaldo", "Harry Roque", "Francisco Doque", "Arnold Schwarzenegger", "Sarah Duterte", "Tyler joseph", "CongTV", "Cynthia Villar",
+                "Gerard Way", "Josh Dun", "Rodrigo Duterte", "Junnie Boy", "Elon Musk", "Debold Sinas", "random_person", "Paul McCartney", "Brad Pitt", "Scarlett Johansson",
+                "Lisa Kudrow", "Simon Helberg", "Mohamed Ali", "Ringo Starr", "Johnny Galecki", "David Schwimmer",
+                "George Harrison", "Jim Parsons", "Matt LeBlanc", "Jennifer Aniston", "Bong Go"};
+
+        for(int i = 0;i < faceNames.length; i++){
+            if(read_faces >= i-0.5 && read_faces < i+0.5){
+                val = (faceNames[i]);
+            }
         }
 
         return val;
